@@ -1,3 +1,6 @@
+import Image from "next/image";
+import athlete from "@/assets/about-athlete.jpg";
+
 const LINES = ["Since", "2002", "Prod", "ucing"];
 
 export function About() {
@@ -27,16 +30,21 @@ export function About() {
           ))}
         </p>
 
-        {/* Photo card. Placeholder until the Figma image is exported. */}
+        {/* Photo card */}
         <div className="relative z-0 aspect-[4/5] w-full md:absolute md:top-[11%] md:left-[3.4%] md:aspect-auto md:h-[83%] md:w-[46%]">
+          {/* Radius scales with the card so it always covers the image's baked-in rounded corners. */}
           <div
             data-anim="about-photo"
-            className="absolute inset-0 overflow-hidden rounded-[1.75rem] bg-[radial-gradient(80%_60%_at_40%_30%,#3a3a3a_0%,#0d0d0d_100%)] grayscale"
+            className="absolute inset-0 overflow-hidden rounded-[max(1.75rem,5%)] bg-neutral-900"
           >
-            <div className="absolute inset-0 bg-[repeating-linear-gradient(115deg,transparent_0_22px,rgba(255,255,255,0.025)_22px_23px)]" />
-            <p className="absolute bottom-6 left-6 max-w-[16rem] text-sm leading-snug text-white/70">
-              Fuelling athletes on and off the pitch for over two decades.
-            </p>
+            <Image
+              src={athlete}
+              alt="Footballer dribbling a ball, black and white"
+              fill
+              placeholder="blur"
+              sizes="(min-width: 768px) 46vw, 100vw"
+              className="object-cover object-[50%_35%]"
+            />
           </div>
           {/* Mobile slot: across the photo. */}
           <div

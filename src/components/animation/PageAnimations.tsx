@@ -49,9 +49,9 @@ export function PageAnimations() {
       // About: photo wipes in, tagline lines rise one by one.
       gsap.fromTo(
         "[data-anim=about-photo]",
-        { clipPath: "inset(18% 12% 18% 12% round 1.75rem)", scale: 1.08 },
+        { clipPath: "inset(18% 12% 18% 12% round max(1.75rem, 5%))", scale: 1.08 },
         {
-          clipPath: "inset(0% 0% 0% 0% round 1.75rem)",
+          clipPath: "inset(0% 0% 0% 0% round max(1.75rem, 5%))",
           scale: 1,
           ease: "none",
           scrollTrigger: { trigger: "#about", start: "top 85%", end: "top 15%", scrub: 1 },
