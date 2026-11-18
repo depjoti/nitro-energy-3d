@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Fonts are injected by next/font as CSS variables on <html>. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), "Arial Black", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Design tokens (from the Figma file). */
+@theme {
+  --color-nitro: #e0e600;
+  --color-nitro-deep: #7d8000;
+  --color-graphite: #272727;
+
+  --animate-marquee: marquee 28s linear infinite;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: #000;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #000;
+  color: #fff;
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+/* Lenis smooth scroll (from lenis/dist/lenis.css) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+::selection {
+  background: var(--color-nitro);
+  color: #000;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-nitro);
+  outline-offset: 4px;
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4.6vw, 88px);
+}
+
+/* Figma frame background: radial #272727 → #000 */
+@utility bg-stage {
+  background-image: radial-gradient(70% 60% at 50% 45%, #272727 0%, #000 100%);
+}
+
+/* Big "NITRO" word fill: radial #E0E600 → #7D8000 */
+@utility text-nitro-gradient {
+  background-image: radial-gradient(120% 140% at 45% 30%, #e0e600 45%, #7d8000 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex h-11 items-center justify-center px-7 text-[15px] font-medium tracking-wide transition-[background-color,color,border-color,box-shadow,transform] duration-300 ease-out active:scale-[0.97];
+  }
+  .btn-nitro {
+    @apply bg-nitro text-black hover:bg-white hover:shadow-[0_0_32px_-6px_var(--color-nitro)];
+  }
+  .btn-light {
+    @apply bg-white text-black hover:bg-nitro hover:shadow-[0_0_32px_-6px_var(--color-nitro)];
+  }
+  .btn-outline {
+    @apply border border-white/90 text-white hover:border-nitro hover:text-nitro;
+  }
+}
+
+/*
+ * Hide intro elements until GSAP takes over, so there is no flash of the
+ * final state. Falls back to visible after 2.5s if scripts never run.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-intro] {
+    visibility: hidden;
+    animation: intro-fallback 0s 2.5s forwards;
+  }
+}
+
+@keyframes intro-fallback {
+  to {
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
