@@ -3,7 +3,7 @@
 A responsive, animation-driven landing page for the fictional **NITRO** energy drink, built from the
 "3D Animation Energy Drink Website" Figma design.
 
-- **Live:** _coming soon_
+- **Live:** https://nitro-energy-3d.vercel.app/
 - **Design:** Figma community file (3 frames, Smart Animate prototype)
 
 ## Highlights
